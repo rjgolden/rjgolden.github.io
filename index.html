@@ -34,16 +34,25 @@
         
         navigator.geolocation.watchPosition(success, error);
 
+        let marker, circle, zoomed;
+
         function success(pos) {
 
             const lat = pos.coords.latitude;
             const lng = pos.coords.longitude;
             const accuracy = pos.coords.accuracy;
 
-            let marker = L.marker([lat, lng]).addTo(map);
-            let circle = L.circle([lat, lng], { radius: accuracy/6 }).addTo(map);
+            if (marker) {
+                map.removeLayer(marker);
+                map.removeLayer(circle);
+            }
 
-            map.fitBounds(circle.getbounds());
+            marker = L.marker([lat, lng]).addTo(map);
+            circle = L.circle([lat, lng], { radius: accuracy/6 }).addTo(map);
+
+            if (!zoomed) {
+                zoomed = map.fitBounds(circle.getbounds());
+            }
 
 
         }

@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.css" />
     
     <style>
         html, body {
@@ -30,6 +31,19 @@
             alert("You clicked the map at " + e.latlng);
         }
         map.on('click', onMapClick);
+
+        // Add the geolocation control to the map
+        var locateControl = L.control.locate({
+            position: 'topleft',  // Position on the map
+            flyTo: true,          // Fly to the location (smooth zoom)
+            setView: true,        // Center map on the geolocation
+            drawCircle: true,     // Draw a circle around the location
+            drawMarker: true,     // Draw a marker at the location
+            showPopup: true,      // Show a popup with a message
+            strings: {
+                title: 'Show me where I am'  // Customize the control text
+            }
+        }).addTo(map);
 
         
     </script>
